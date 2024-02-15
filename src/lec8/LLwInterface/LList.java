@@ -48,17 +48,19 @@ class LList implements LListInt {
                     return (true);
                 } else {                      // case 2b.2. not at head
                     Node previous = _head;
-                    boolean found = false;
-                    while ((previous._nextNode != null) && (!found)) {
-                        if (previous._nextNode._value == value) {
-                            previous._nextNode = previous._nextNode._nextNode;
-                            found = true;
-                            return (found);
+                    Node current = previous._nextNode;
+                    while (current != null) {
+                        if (current._value == value) {
+                            previous._nextNode = current._nextNode;
+                            if (current._nextNode == null)
+                                _tail = previous;
+                            return (true);
                         } else {
-                            previous = previous._nextNode;
+                            previous = current;
+                            current = current._nextNode;
                         }
                     }
-                    return (found);
+                    return (false);
                 }
             }
         }
